@@ -79,7 +79,17 @@ public class RecipeController {
      */
     @PutMapping("/{id}")
     public Recipe updateRecipe(@PathVariable long id, @RequestBody Recipe updatedRecipe) {
-        throw new UnsupportedOperationException("Update recipe not implemented");
+        //throw new UnsupportedOperationException("Update recipe not implemented");
+        for(Recipe recipe : recipes) {
+            if (recipe.getId() == id) {
+                //keeps the old id.
+                recipe.setTitle(updatedRecipe.getTitle());
+                recipe.setDescription(updatedRecipe.getDescription());
+                recipe.setIngredients(updatedRecipe.getIngredients());
+                recipe.setInstructions(updatedRecipe.getInstructions());
+                return recipe;
+            }
+        } return null;
     }
 
     /**
@@ -91,6 +101,20 @@ public class RecipeController {
      */
     @PatchMapping("/{id}")
     public Recipe patchRecipe(@PathVariable long id, @RequestBody Recipe partialRecipe) {
-        throw new UnsupportedOperationException("Update recipe not implemented");
+        //throw new UnsupportedOperationException("Update recipe not implemented");
+        for(Recipe recipe : recipes) {
+            if( recipe.getId() == id) {
+                //here is partial. so only update fields that are not null.
+                if(partialRecipe.getTitle() != null)
+                    recipe.setTitle(partialRecipe.getTitle());
+                if(partialRecipe.getDescription() != null)
+                    recipe.setDescription(partialRecipe.getDescription());
+                if(partialRecipe.getIngredients() != null)
+                    recipe.setIngredients(partialRecipe.getIngredients());
+                if(partialRecipe.getInstructions() != null)
+                    recipe.setInstructions(partialRecipe.getInstructions());
+                return recipe;
+            }
+        } return null; //if there is no such id for a recipe.
     }
 }
